@@ -7,6 +7,10 @@ class User
   
   def login=(_login)
     super
-    self._id = "user-#{_login}"
+    self._id = self.class.to_id(_login)
+  end
+  
+  def self.to_id(login)
+    "user-#{login}"
   end
 end

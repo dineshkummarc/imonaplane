@@ -57,8 +57,8 @@ get '/session_auth' do
     access_token = twitter_client.authorize(
       session[:request_token], session[:request_token_secret], oauth_verifier: params[:oauth_verifier])
     if twitter_client.authorized?
-      user = User.new login: twitter_client.info['screen_name'], twitter_access_token: access_token.token,
-        twitter_secret_token: access_token.secret
+      user = db.load(User.to_id(twitter_client.info['screen_name'])) || User.new(login: twitter_client.info['screen_name'], twitter_access_token: access_token.token,
+        twitter_secret_token: access_token.secret)
       db.save! user
       session[:user_id] = user.id
     end

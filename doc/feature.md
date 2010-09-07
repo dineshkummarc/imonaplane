@@ -1,4 +1,3 @@
-* twitter signup/signin
 * tweet/enter flight no./date
 * show a page per flight with people on that plan (following/followers separately)
 * start page: upcoming flights me/following
@@ -7,3 +6,6 @@
 
 ## other ideas
 * do something with seat numbers
+
+## done
+* twitter signup/signin
