@@ -7,7 +7,6 @@ require 'twitter_oauth'
 require 'ostruct'
 
 ROOT = File.dirname(__FILE__)
-BASE_URL = 'http://imonaplane.net'
 $LOAD_PATH.unshift ROOT + '/lib'
 
 configure :production do
@@ -45,6 +44,10 @@ helpers do
   include Rack::Utils
   alias_method :h, :escape_html
   
+  def base_url
+    "#{request.scheme}://#{request.host_with_port}"
+  end
+  
   def current_user
     @user ||= db.load session[:user_id] if session[:user_id]
   end
@@ -54,7 +57,7 @@ helpers do
   end
   
   def twitter_authorize_url
-    request_token = twitter_client.request_token(oauth_callback: BASE_URL + '/session_auth')
+    request_token = twitter_client.request_token(oauth_callback: base_url + '/session_auth')
     session[:request_token] = request_token.token
     session[:request_token_secret] = request_token.secret
     request_token.authorize_url
