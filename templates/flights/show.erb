@@ -9,3 +9,16 @@
   <% end %>
   </ul>
 </div>
+
+<% unless flight.passengers.include?(current_user) %>
+  <form action="/flights" method="POST">
+    <input type="hidden" name="flight[number]" id="flight_number" value="<%= flight.number %>"/>
+    <input type="hidden" name="flight[date]" id="flight_date" value="<%= flight.date %>"/>
+  
+    <p>
+      <input type="submit" value="I'm on that Plane"/>
+    </p>
+  </form>
+<% else %>
+  <p>You're on that plane</p>
+<% end %>

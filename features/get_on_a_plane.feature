@@ -26,3 +26,17 @@ Feature: Get on a plane
     Then I should be on the page for flight "AB123"
       And I should see "langalex" within "#passengers"
       And I should see "roidrage" within "#passengers"
+
+  Scenario: join via the flight page
+    Given a user "langalex" is signed in
+      And a user with the login "roidrage"
+      And a flight "AB123" on "2010-09-08"
+      And "roidrage" in on flight "AB123" on "2010-09-08"
+    When I go to the page for flight "AB123"
+      And I press "I'm on that plane"
+    Then I should be on the page for flight "AB123"
+      And I should see "langalex" within "#passengers"
+      And I should see "roidrage" within "#passengers"
+      And I should see "You're on that plane"
+  
+  
