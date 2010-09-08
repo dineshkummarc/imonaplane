@@ -12,7 +12,7 @@ class Flight
   validates_format_of :date, :with => /^\d{4}-\d{2}-\d{2}$/, message: /let's keep this in the YYYY-MM-DD format please/
   
   def number=(_number)
-    super
+    super _number.gsub(/\s+/, '').upcase
     set_id
   end
   

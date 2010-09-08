@@ -3,15 +3,25 @@ require File.dirname(__FILE__) + '/../lib/flight'
 require File.dirname(__FILE__) + '/../lib/ticket'
 require File.dirname(__FILE__) + '/../lib/user'
 
+describe Flight, 'number=' do
+  it "should remove spaces" do
+    Flight.new(number: '3 310').number.should == '3310'
+  end
+  
+  it "should upcase everything" do
+    Flight.new(number: 'el310').number.should == 'EL310'
+  end
+end
+
 describe Flight, 'setting the flight no and date' do
   it "should set the id" do
-    Flight.new(number: 'ab123', date: '2010-01-01').id.should == 'flight-2010-01-01-ab123'
+    Flight.new(number: 'AB123', date: '2010-01-01').id.should == 'flight-2010-01-01-AB123'
   end
 end
 
 describe Flight, '#to_key' do
   it "should return the flight number and date" do
-    Flight.new(number: 'ab123', date: '2010-01-01').to_key.should == '2010-01-01-ab123'
+    Flight.new(number: 'AB123', date: '2010-01-01').to_key.should == '2010-01-01-AB123'
   end
 end
 
