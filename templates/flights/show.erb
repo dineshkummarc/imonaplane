@@ -1,0 +1,8 @@
+<h1>Flight <%= flight.number %></h1>
+<p>Date: <%= h flight.date %></p>
+
+<div id="passengers">
+  <% flight.passengers.each do |user| %>
+    <li><%= h user.login %></li>
+  <% end %>
+</div>

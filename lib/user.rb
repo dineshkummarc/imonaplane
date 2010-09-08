@@ -5,6 +5,8 @@ class User
   property :twitter_secret_token
   property :login
   
+  view :by_id, key: :_id
+  
   def login=(_login)
     super
     self._id = self.class.to_id(_login)

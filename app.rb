@@ -13,6 +13,8 @@ $LOAD_PATH.unshift ROOT + '/lib'
 CouchPotato::Config.database_name = 'imonaplane_test'
 
 require 'user'
+require 'flight'
+require 'ticket'
 
 AppConfig = OpenStruct.new twitter_consumer_key: '', twitter_consumer_secret: ''
 
@@ -23,6 +25,9 @@ set :logging, true
 enable :sessions
 
 helpers do
+  include Rack::Utils
+  alias_method :h, :escape_html
+  
   def current_user
     @user ||= db.load session[:user_id] if session[:user_id]
   end
@@ -64,4 +69,20 @@ get '/session_auth' do
     end
   end
   redirect '/'
+end
+
+get '/flights/new' do
+  erb :'flights/new'
+end
+
+post '/flights' do
+  flight = Flight.new params[:flight]
+  db.save flight
+  db.save! Ticket.new(user_id: current_user.id, flight_id: flight.id)
+  redirect "/#{flight.to_key}"
+end
+
+get '/:flight_key' do |flight_key|
+  flight = db.load Flight.to_id(flight_key)
+  erb :'flights/show', locals: {flight: flight}
 end

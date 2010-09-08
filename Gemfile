@@ -13,4 +13,5 @@ group :test do
   gem 'fakeweb'
   gem 'rspec'
   gem 'json'
+  gem 'launchy'
 end
