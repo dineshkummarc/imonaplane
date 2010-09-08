@@ -16,7 +16,11 @@ require 'user'
 require 'flight'
 require 'ticket'
 
-AppConfig = OpenStruct.new twitter_consumer_key: '', twitter_consumer_secret: ''
+if ENV['TWITTER_CONSUMER_KEY'].nil? || ENV['TWITTER_CONSUMER_SECRET'].nil?
+  STDERR.puts "Must specify TWITTER_CONSUMER_SECRET and TWITTER_CONSUMER_KEY in env"
+  exit -1
+end
+AppConfig = OpenStruct.new twitter_consumer_key: ENV['TWITTER_CONSUMER_KEY'], twitter_consumer_secret: ENV['TWITTER_CONSUMER_SECRET']
 
 set :static, true
 set :views, ROOT + '/templates'
