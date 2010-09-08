@@ -57,6 +57,10 @@ helpers do
     @twitter_client ||= TwitterOAuth::Client.new(
       consumer_key: AppConfig.twitter_consumer_key, consumer_secret: AppConfig.twitter_consumer_secret)
   end
+  
+  def escape_uri(uri)
+    URI.escape(uri, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+  end
 end
 
 get '/' do

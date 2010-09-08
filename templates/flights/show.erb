@@ -1,5 +1,7 @@
+
 <h1>Flight <%= flight.number %></h1>
 <p>Date: <%= h flight.date %></p>
+
 
 <div id="passengers">
   <h2>Passengers on that Flight</h2>
@@ -10,15 +12,19 @@
   </ul>
 </div>
 
-<% unless flight.passengers.include?(current_user) %>
-  <form action="/flights" method="POST">
-    <input type="hidden" name="flight[number]" id="flight_number" value="<%= flight.number %>"/>
-    <input type="hidden" name="flight[date]" id="flight_date" value="<%= flight.date %>"/>
+<div style="float: right">
+  <% unless flight.passengers.include?(current_user) %>
+    <form action="/flights" method="POST">
+      <input type="hidden" name="flight[number]" id="flight_number" value="<%= flight.number %>"/>
+      <input type="hidden" name="flight[date]" id="flight_date" value="<%= flight.date %>"/>
   
-    <p>
-      <input type="submit" value="I'm on that Plane"/>
-    </p>
-  </form>
-<% else %>
-  <p>You're on that plane</p>
-<% end %>
+      <p>
+        <input type="submit" value="I'm on that Plane"/>
+      </p>
+    </form>
+  <% else %>
+    <p>You're on that plane</p>
+  <% end %>
+  
+  <a href="http://twitter.com/?status=<%= escape_uri "I will be on flight #{flight.number} on #{flight.date}. Are you too? #{BASE_URL}/#{flight.to_key}  #imonaplane"%>">Tweet this...</a>
+</div>
