@@ -21,10 +21,7 @@ describe "POST /flights" do
   end
   
   before(:each) do
-    @db = stub_db save: true, save!: nil
-    
-    @flight = stub('flight').as_null_object
-    Flight.stub(new: @flight)
+    @db = stub_db save: true, save!: nil, view: []
     
     Sinatra::Application.class_eval do
       helpers do
@@ -49,42 +46,85 @@ describe "POST /flights" do
     last_response.status.should == 302
     last_response.location.should == '/'
   end
-  
-  it "should initialzie a new flight" do
-    Flight.should_receive(:new).with('number' => '123', 'date' => '2010-01-01')
 
-    post '/flights', {flight: {number: '123', date: '2010-01-01'}}
+  context 'flight exists already' do
+    before(:each) do
+      @flight = stub('flight').as_null_object
+      @db.stub_view(Flight, :by_number_and_date).with(['123', '2010-01-01']).and_return(@flight)
+    end
+    
+    it "should initialize a ticket" do
+      @flight.stub(id: 'flight-1')
+
+      Ticket.should_receive(:new).with(flight_id: 'flight-1', user_id: 'user-1')
+
+      post '/flights', flight: {number: '123', date: '2010-01-01'}
+    end
+    
+    it "should save the ticket" do
+      ticket = stub('ticket')
+      Ticket.stub(new: ticket)
+
+      @db.should_receive(:save!).with(ticket)
+
+      post '/flights', flight: {number: '123', date: '2010-01-01'}
+    end
+
+    it "should redirect to the flight" do
+      @flight.stub(to_key: 'ab1234')
+
+      post '/flights', flight: {number: '123', date: '2010-01-01'}
+
+      last_response.location.should == '/ab1234'
+    end
+    
+    
   end
   
-  it "should save the flight" do
-    @db.should_receive(:save).with(@flight)
+  context 'no flight exists' do
+    before(:each) do
+      @db.stub_view(Flight, :by_number_and_date).with(['123', '2010-01-01']).and_return([])
+      @flight = stub('flight').as_null_object
+      Flight.stub(new: @flight)
+    end
     
-    post '/flights'
-  end
+    it "should initialize a new flight" do
+      Flight.should_receive(:new).with('number' => '123', 'date' => '2010-01-01')
+
+      post '/flights', flight: {number: '123', date: '2010-01-01'}
+    end
   
-  it "should initialize a ticket" do
-    @flight.stub(id: 'flight-1')
+    it "should save the flight" do
+      @db.should_receive(:save).with(@flight)
     
-    Ticket.should_receive(:new).with(flight_id: 'flight-1', user_id: 'user-1')
+      post '/flights', flight: {number: '123', date: '2010-01-01'}
+    end
     
-    post '/flights'
-  end
-  
-  it "should save the ticket" do
-    ticket = stub('ticket')
-    Ticket.stub(new: ticket)
+    it "should initialize a ticket" do
+      @flight.stub(id: 'flight-1')
+
+      Ticket.should_receive(:new).with(flight_id: 'flight-1', user_id: 'user-1')
+
+      post '/flights', flight: {number: '123', date: '2010-01-01'}
+    end
     
-    @db.should_receive(:save!).with(ticket)
+    it "should save the ticket" do
+      ticket = stub('ticket')
+      Ticket.stub(new: ticket)
+
+      @db.should_receive(:save!).with(ticket)
+
+      post '/flights', flight: {number: '123', date: '2010-01-01'}
+    end
+
+    it "should redirect to the flight" do
+      @flight.stub(to_key: 'ab1234')
+
+      post '/flights', flight: {number: '123', date: '2010-01-01'}
+
+      last_response.location.should == '/ab1234'
+    end
     
-    post '/flights'
-  end
-  
-  it "should redirect to the flight" do
-    @flight.stub(to_key: 'ab1234')
-    
-    post '/flights'
-    
-    last_response.location.should == '/ab1234'
   end
 end
 

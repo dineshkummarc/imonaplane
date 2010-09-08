@@ -91,8 +91,11 @@ post '/flights' do
     return
   end
   
-  flight = Flight.new params[:flight]
-  db.save flight
+  unless(flight = db.view(Flight.by_number_and_date([params[:flight][:number], params[:flight][:date]])).first)
+    flight = Flight.new params[:flight]
+    db.save flight
+  end
+  
   db.save! Ticket.new(user_id: current_user.id, flight_id: flight.id)
   redirect "/#{flight.to_key}"
 end

@@ -6,6 +6,7 @@ class User
   property :login
   
   view :by_id, key: :_id
+  view :by_login, key: :login
   
   def login=(_login)
     super

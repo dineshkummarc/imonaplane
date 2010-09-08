@@ -5,6 +5,7 @@ class Flight
   property :date
   
   view :by_number, key: :number
+  view :by_number_and_date, key: [:number, :date]
   
   validates_presence_of :number
   validates_format_of :date, :with => /^\d{4}-\d{2}-\d{2}$/, message: /let's keep this in the YYYY-MM-DD format please/
