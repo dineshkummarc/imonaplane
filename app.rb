@@ -28,6 +28,12 @@ set :public, ROOT + '/public'
 set :logging, true
 enable :sessions
 
+class String
+  def blank?
+    size == 0
+  end
+end
+
 helpers do
   include Rack::Utils
   alias_method :h, :escape_html
