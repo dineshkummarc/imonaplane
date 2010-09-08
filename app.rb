@@ -63,6 +63,12 @@ helpers do
     request_token.authorize_url
   end
   
+  def error_on(object, attribute)
+    if(error = object.errors[attribute].first)
+      "<p class=\"error\">#{error}</p>"
+    end
+  end
+  
   def twitter_client
     @twitter_client ||= TwitterOAuth::Client.new(
       consumer_key: AppConfig.twitter_consumer_key, consumer_secret: AppConfig.twitter_consumer_secret)
@@ -96,7 +102,7 @@ get '/session_auth' do
 end
 
 get '/flights/new' do
-  erb :'flights/new'
+  erb :'flights/new', locals: {flight: Flight.new}
 end
 
 post '/flights' do
@@ -104,14 +110,13 @@ post '/flights' do
     redirect '/'
     return
   end
-  
-  unless(flight = db.view(Flight.by_number_and_date([params[:flight][:number], params[:flight][:date]])).first)
-    flight = Flight.new params[:flight]
-    db.save flight
+  flight = db.view(Flight.by_number_and_date([params[:flight][:number], params[:flight][:date]])).first || Flight.new(params[:flight])
+  if !flight.new? || db.save(flight)
+    db.save! Ticket.new(user_id: current_user.id, flight_id: flight.id, date: flight.date)
+    redirect "/#{flight.to_key}"
+  else
+    erb :'/flights/new', locals: {flight: flight}
   end
-  
-  db.save! Ticket.new(user_id: current_user.id, flight_id: flight.id, date: flight.date)
-  redirect "/#{flight.to_key}"
 end
 
 get '/:flight_key' do |flight_key|

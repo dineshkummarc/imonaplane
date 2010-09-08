@@ -124,6 +124,25 @@ describe "POST /flights" do
     end
     
   end
+
+  context 'saving the flight fails' do
+    before(:each) do
+      @db.stub(:save).and_return(false)
+    end
+    
+    it "should not create a ticket" do
+      Ticket.should_not_receive(:new)
+      
+      post '/flights', flight: {number: '123', date: '2010-01-01'}
+    end
+    
+    it "should render new flight" do
+      post '/flights', flight: {number: '123', date: '2010-01-01'}
+      
+      last_response.should be_ok
+    end
+    
+  end
 end
 
 describe "GET /:flight_key" do

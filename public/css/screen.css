@@ -6,6 +6,7 @@
   padding-top: 2em;
   padding-bottom: 2em;
 }
+
 #header {
   height: 5em;
   background-color: rgb(186,195,205);
@@ -47,4 +48,8 @@ h1 {
 
 h2 {
   font-size: 1.1em;
+}
+
+.error {
+  color: red;
 }

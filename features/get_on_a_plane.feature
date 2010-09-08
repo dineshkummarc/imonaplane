@@ -12,6 +12,14 @@ Feature: Get on a plane
       And I press "I'm on that plane"
     Then I should be on the page for flight "AB8269"
       And I should see "langalex" within "#passengers"
+      
+  Scenario: enter invalid data
+    Given a user "langalex" is signed in
+    When I go to the start page
+      And I follow "Enter New Flight"
+      And I press "I'm on that plane"
+    Then I should see "please enter a flight number"
+      And I should see "let's keep this in the YYYY-MM-DD format please"
   
   Scenario: someone has entered that flight already
     Given a user "langalex" is signed in
