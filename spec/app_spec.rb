@@ -84,4 +84,21 @@ describe "GET /:flight_key" do
     
     get '/ab123'
   end
+  
+  it "should return 200" do
+    db = stub_db
+    db.stub(:load).and_return(stub.as_null_object)
+    
+    get '/ab123'
+    last_response.status.should == 200
+  end
+  
+  it "should return 404 if no flight was found" do
+    db = stub_db
+    db.stub(:load).and_return(nil)
+    
+    get '/ab123'
+    last_response.status.should == 404
+    
+  end
 end

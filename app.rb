@@ -94,5 +94,9 @@ end
 
 get '/:flight_key' do |flight_key|
   flight = db.load Flight.to_id(flight_key)
-  erb :'flights/show', locals: {flight: flight}
+  if flight
+    erb :'flights/show', locals: {flight: flight}
+  else
+    404
+  end
 end
