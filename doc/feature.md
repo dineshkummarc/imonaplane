@@ -1,14 +1,16 @@
-* join exiisting flight
-* show a page per flight with people on that plan (following/followers separately)
+* following/followers separately on flight page
 * start page: upcoming flights me/following
 * email user when following books a new flight
-* tweet this flight
+
 * enter flight no./date by tweeting
 
 ## other ideas
-* do something with seat numbers
+* enter set number and see who's sitting next to you
 
 
 ## done
 * twitter signup/signin
 * enter flight no./date
+* join existing flight
+* tweet this flight
+* show a page per flight with people on that plane
