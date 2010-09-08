@@ -86,6 +86,11 @@ get '/flights/new' do
 end
 
 post '/flights' do
+  unless current_user
+    redirect '/'
+    return
+  end
+  
   flight = Flight.new params[:flight]
   db.save flight
   db.save! Ticket.new(user_id: current_user.id, flight_id: flight.id)

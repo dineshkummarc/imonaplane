@@ -35,6 +35,21 @@ describe "POST /flights" do
     end
   end
   
+  it "should redirect to the start page if not logged in" do
+    Sinatra::Application.class_eval do
+      helpers do
+        def current_user
+          nil
+        end
+      end
+    end
+    
+    post '/flights'
+    
+    last_response.status.should == 302
+    last_response.location.should == '/'
+  end
+  
   it "should initialzie a new flight" do
     Flight.should_receive(:new).with('number' => '123', 'date' => '2010-01-01')
 
