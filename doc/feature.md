@@ -1,7 +1,7 @@
 * following/followers separately on flight page
 * start page: upcoming flights me/following
 * email user when following books a new flight
-
+* enter start/destination airport/city (or grab these from somewhere)
 * enter flight no./date by tweeting
 
 ## other ideas
