@@ -38,6 +38,12 @@ body {
   margin-top: 20px;
 }
 
+p {line-height: 1.5em;}
+
+.huge {
+  font-size: 2em;
+}
+
 * {
   font-family: sans-serif;
 }
