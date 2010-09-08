@@ -10,7 +10,7 @@ ROOT = File.dirname(__FILE__)
 $LOAD_PATH.unshift ROOT + '/lib'
 
 configure :production do
-  CouchPotato::Config.database_name = ENV['CLOUDANT_URL']
+  CouchPotato::Config.database_name = "#{ENV['CLOUDANT_URL']}/imonaplane_production"
 end
 
 configure :test do
