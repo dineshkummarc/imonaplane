@@ -100,7 +100,7 @@ post '/flights' do
     db.save flight
   end
   
-  db.save! Ticket.new(user_id: current_user.id, flight_id: flight.id)
+  db.save! Ticket.new(user_id: current_user.id, flight_id: flight.id, date: flight.date)
   redirect "/#{flight.to_key}"
 end
 

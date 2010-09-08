@@ -14,3 +14,4 @@
 * join existing flight
 * tweet this flight
 * show a page per flight with people on that plane
+* start page: my upcoming flights

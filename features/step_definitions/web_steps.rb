@@ -143,7 +143,7 @@ Then /^(?:|I )should see \/([^\/]*)\/ within "([^\"]*)"$/ do |regexp, selector|
 end
 
 Then /^(?:|I )should not see "([^\"]*)"$/ do |text|
-  response.should_not contain(text)
+  response_body.should_not contain(text)
 end
 
 Then /^(?:|I )should not see "([^\"]*)" within "([^\"]*)"$/ do |text, selector|

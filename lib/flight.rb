@@ -4,6 +4,7 @@ class Flight
   property :number
   property :date
   
+  view :by_id, key: :_id
   view :by_number, key: :number
   view :by_number_and_date, key: [:number, :date]
   

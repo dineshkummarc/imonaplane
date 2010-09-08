@@ -42,6 +42,7 @@ GEM
     sinatra (1.0)
       rack (>= 1.0)
     term-ansicolor (1.0.5)
+    timecop (0.3.5)
     trollop (1.16.2)
     validatable (1.6.7)
     webrat (0.7.1)
@@ -62,5 +63,6 @@ DEPENDENCIES
   oauth
   rspec
   sinatra
+  timecop
   validatable
   webrat

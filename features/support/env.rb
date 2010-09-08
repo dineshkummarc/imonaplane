@@ -10,6 +10,7 @@ require 'rack/test'
 require 'webrat'
 require 'fakeweb'
 require 'json'
+require 'timecop'
 
 Webrat.configure do |config|
   config.mode = :rack

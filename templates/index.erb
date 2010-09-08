@@ -2,6 +2,15 @@
   <h1>Welcome @<%= current_user.login %></h1>
   
   <p><a href="/flights/new">Enter new Flight</a></p>
+  
+  <% if current_user.upcoming_flights.any? %>
+    <h2>Upcoming Flights</h2>
+    <ul>
+      <% current_user.upcoming_flights.each do |flight| %>
+        <li><%= flight.date %>: <a href="/<%= flight.to_key %>"><%= flight.number %></a></li>
+      <% end %>
+    </ul>
+  <% end %>
 <% else %>
   <h1>Welcome to I'm on a plane</h1>
   

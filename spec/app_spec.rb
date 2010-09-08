@@ -54,9 +54,9 @@ describe "POST /flights" do
     end
     
     it "should initialize a ticket" do
-      @flight.stub(id: 'flight-1')
+      @flight.stub(id: 'flight-1', date: '2010-01-01')
 
-      Ticket.should_receive(:new).with(flight_id: 'flight-1', user_id: 'user-1')
+      Ticket.should_receive(:new).with(flight_id: 'flight-1', user_id: 'user-1', date: '2010-01-01')
 
       post '/flights', flight: {number: '123', date: '2010-01-01'}
     end
@@ -101,9 +101,9 @@ describe "POST /flights" do
     end
     
     it "should initialize a ticket" do
-      @flight.stub(id: 'flight-1')
+      @flight.stub(id: 'flight-1', date: '2010-01-01')
 
-      Ticket.should_receive(:new).with(flight_id: 'flight-1', user_id: 'user-1')
+      Ticket.should_receive(:new).with(flight_id: 'flight-1', user_id: 'user-1', date: '2010-01-01')
 
       post '/flights', flight: {number: '123', date: '2010-01-01'}
     end
