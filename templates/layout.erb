@@ -1,8 +1,20 @@
 <html>
   <head>
     <title>I'm on a plane</title>
-    </head>
+    <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen" charset="utf-8"/>
+  </head>
   <body>
+    <div id="header" class="container">
+      <a href="/" title="Home"><img src="/img/logo.png" la=t"logo" title="Home" id="logo"/></a>
+      Tweet your flight no. and find out who is on the same flight.
+      
+    </div>
+    <div id="main" class="container">
     <%= yield %>
+    </div>
+    <div id="footer" class="container">
+      <%= Date.today.year %> <a href="http://alex.io">Alexander Lang</a>
+      <br/>this site is open source, feel free to <a href="http://github.com/langalex/imonaplane">fork</a> - logo by <a href="http://www.iconspedia.com/icon/paper-plane-8211.html">eponas-deeway</a>
+    </div>
   </body>
 </html>

@@ -2,7 +2,10 @@
 <p>Date: <%= h flight.date %></p>
 
 <div id="passengers">
+  <h2>Passengers on that Flight</h2>
+  <ul>
   <% flight.passengers.each do |user| %>
-    <li><%= h user.login %></li>
+    <li><a href="http://twitter.com/<%= h user.login %>">@<%= h user.login %></a></li>
   <% end %>
+  </ul>
 </div>
