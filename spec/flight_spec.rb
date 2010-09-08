@@ -1,4 +1,4 @@
-require 'couch_potato'
+require 'spec_helper'
 require File.dirname(__FILE__) + '/../lib/flight'
 require File.dirname(__FILE__) + '/../lib/ticket'
 require File.dirname(__FILE__) + '/../lib/user'

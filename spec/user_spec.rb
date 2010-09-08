@@ -1,9 +1,8 @@
-require 'couch_potato'
+require 'spec_helper'
 require File.dirname(__FILE__) + '/../lib/user'
 require File.dirname(__FILE__) + '/../lib/ticket'
 require File.dirname(__FILE__) + '/../lib/flight'
 require 'timecop'
-require 'couch_potato/rspec'
 
 describe User, '#login=' do
   it "should set the id" do

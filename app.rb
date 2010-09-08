@@ -10,17 +10,24 @@ ROOT = File.dirname(__FILE__)
 BASE_URL = 'http://imonaplane.net'
 $LOAD_PATH.unshift ROOT + '/lib'
 
-CouchPotato::Config.database_name = 'imonaplane_test'
+configure :production do
+  CouchPotato::Config.database_name = ENV['CLOUDANT_URL']
+end
+
+configure :test do
+  CouchPotato::Config.database_name = 'imonaplane_test'
+end
+
+configure :development do
+  CouchPotato::Config.database_name = 'imonaplane_development'
+end
+
+AppConfig = OpenStruct.new twitter_consumer_key: ENV['TWITTER_CONSUMER_KEY'], twitter_consumer_secret: ENV['TWITTER_CONSUMER_SECRET']
 
 require 'user'
 require 'flight'
 require 'ticket'
 
-if ENV['TWITTER_CONSUMER_KEY'].nil? || ENV['TWITTER_CONSUMER_SECRET'].nil?
-  STDERR.puts "Must specify TWITTER_CONSUMER_SECRET and TWITTER_CONSUMER_KEY in env"
-  exit -1
-end
-AppConfig = OpenStruct.new twitter_consumer_key: ENV['TWITTER_CONSUMER_KEY'], twitter_consumer_secret: ENV['TWITTER_CONSUMER_SECRET']
 
 set :static, true
 set :views, ROOT + '/templates'

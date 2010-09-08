@@ -1,7 +1,5 @@
-ENV['TWITTER_CONSUMER_KEY'] = '1'; ENV['TWITTER_CONSUMER_SECRET'] = '2'
-
+require 'spec_helper'
 require File.dirname(__FILE__) + '/../app'
-require 'couch_potato/rspec'
 
 require 'spec'
 require 'rack/test'

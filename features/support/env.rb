@@ -1,4 +1,4 @@
-ENV['TWITTER_CONSUMER_KEY'] = '1'; ENV['TWITTER_CONSUMER_SECRET'] = '2'
+ENV['RACK_ENV'] = 'test'
 
 app_file = File.join(File.dirname(__FILE__), *%w[.. .. app.rb])
 require app_file
