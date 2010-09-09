@@ -11,10 +11,12 @@ $LOAD_PATH.unshift ROOT + '/lib'
 
 configure :production do
   CouchPotato::Config.database_name = "#{ENV['CLOUDANT_URL']}/imonaplane_production"
+  DEFAULT_HOST = 'imonaplane.net'
 end
 
 configure :test do
   CouchPotato::Config.database_name = 'imonaplane_test'
+  DEFAULT_HOST = 'example.org'
 end
 
 configure :development do
@@ -76,6 +78,12 @@ helpers do
   
   def escape_uri(uri)
     URI.escape(uri, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+  end
+end
+
+before do
+  if defined?(DEFAULT_HOST) && request.host != DEFAULT_HOST
+    redirect "http://#{DEFAULT_HOST}#{request.fullpath}", 301
   end
 end
 
