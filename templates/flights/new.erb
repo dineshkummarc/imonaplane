@@ -7,10 +7,20 @@
   
   <p>
     <label for="flight_date">Date</label>
-    <input type="text" name="flight[date]" id="flight_date" placeholder="2010-09-15" class="date"/>
+    <input type="text" name="flight[date]" id="flight_date" placeholder="" class="date"/>
     <%= error_on flight, :date %>
   </p>
-  
+  <script type="text/javascript" charset="utf-8">
+    var flight_date = document.getElementById("flight_date");
+    if(!flight_date.placeholder) {
+      function zeropad(i) { return i < 10 ? "0" + i : i; }
+      var date = new Date();
+      var flight_date_now = date.getFullYear()
+        + "-" + zeropad(date.getMonth())
+        + "-" + zeropad(date.getDate());
+      flight_date.placeholder = flight_date_now;
+    }
+  </script>
   <p>
     <input type="submit" value="I'm on that Plane"/>
   </p>
