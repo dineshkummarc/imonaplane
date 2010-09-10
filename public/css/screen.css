@@ -1,6 +1,4 @@
 .container {
-  width: 985px;
-  margin: auto;
   padding-left: 35px;
   padding-right: 35px;
   padding-top: 2em;
@@ -44,22 +42,15 @@ p {line-height: 1.5em;}
   font-size: 2em;
 }
 
-* {
-  font-family: sans-serif;
-}
-
-h1 {
-  font-size: 1.3em;
-}
-
-h2 {
-  font-size: 1.1em;
-}
-
-img {
-  border: 0px;
-}
-
 .error {
   color: red;
+}
+
+input {
+  font-size: 1em;
+}
+
+label {
+  width: 250px;
+  display: inline-block;
 }

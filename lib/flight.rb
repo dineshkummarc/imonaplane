@@ -3,12 +3,16 @@ class Flight
   
   property :number
   property :date
+  property :from
+  property :to
   
   view :by_id, key: :_id
   view :by_number, key: :number
   view :by_number_and_date, key: [:number, :date]
   
   validates_presence_of :number, message: 'please enter a flight number'
+  validates_presence_of :from, message: 'Please enter the aiport code, e.g. SFO'
+  validates_presence_of :to, message: 'Please enter the aiport code, e.g. JFK'
   validates_format_of :date, :with => /^\d{4}-\d{2}-\d{2}$/, message: "let's keep this in the YYYY-MM-DD format please"
   
   def number=(_number)
