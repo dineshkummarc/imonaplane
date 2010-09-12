@@ -9,7 +9,7 @@ gem 'moomerman-twitter_oauth'
 
 group :test do
   gem 'cucumber'
-  gem 'webrat'
+  gem 'capybara'
   gem 'rspec'
   gem 'fakeweb'
   gem 'rspec'

@@ -54,3 +54,7 @@ label {
   width: 250px;
   display: inline-block;
 }
+
+input.waiting:after {
+  content: "..."; /* XXX */
+}
