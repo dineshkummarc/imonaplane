@@ -153,6 +153,24 @@ describe "the app" do
     end
   end
 
+  describe "GET /flights" do
+    it "should find a flight with the matching flight number" do
+      stub_db view: []
+      Flight.should_receive(:by_number).with(key: 'AB123', limit: 1)
+      
+      get '/flights', {number: 'ab 123'}
+    end
+    
+    it "should render the flight as json" do
+      db = stub_db
+      db.stub_view(Flight, :by_number).and_return([stub('flight', to_json: '{"number": "AB123"}')])
+      
+      get '/flights', {number: 'ab 123'}
+      last_response.body.should == '{"number": "AB123"}'
+      last_response.content_type.should == 'application/json'
+    end
+  end
+
   describe "GET /:flight_key" do
     it "should load the flight" do
       db = stub_db

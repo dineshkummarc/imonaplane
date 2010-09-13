@@ -1,9 +1,14 @@
 
-<h1>Flight <%= flight.number %></h1>
-<p>Date: <%= h flight.date %></p>
+<h1 class="bottom">Flight <%= h flight.number %></h1>
+<p class="span-2 quiet">
+  From <%= h flight.from %> to <%= h flight.to %>
+</p>
+<p class="spam-2 quiet">
+  Date: <%= h flight.date %>
+</p>
 
 
-<div id="passengers">
+<div id="passengers" class="span-6">
   <h2>Passengers on that Flight</h2>
   <ul>
   <% flight.passengers.each do |user| %>
@@ -12,7 +17,7 @@
   </ul>
 </div>
 
-<div style="float: right">
+<div class="span-6 last">
   <% unless flight.passengers.include?(current_user) %>
     <form action="/flights" method="POST">
       <input type="hidden" name="flight[number]" id="flight_number" value="<%= flight.number %>"/>
@@ -26,5 +31,5 @@
     <p>You're on that plane</p>
   <% end %>
   
-  <a href="http://twitter.com/?status=<%= escape_uri "I will be on flight #{flight.number} on #{flight.date}. Are you too? #{base_url}/#{flight.to_key}  #imonaplane"%>">Tweet this...</a>
+  <a href="http://twitter.com/?status=<%= escape_uri "I will be flying from #{h flight.from} to #{h flight.to} on #{flight.date}. Are we on the same flight? #{base_url}/#{flight.to_key} #imonaplane"%>">Tweet this...</a>
 </div>

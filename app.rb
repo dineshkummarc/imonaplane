@@ -19,6 +19,11 @@ configure :test do
   DEFAULT_HOST = 'example.org'
 end
 
+configure :cucumber do
+  CouchPotato::Config.database_name = 'imonaplane_test'
+  DEFAULT_HOST = 'localhost'
+end
+
 configure :development do
   CouchPotato::Config.database_name = 'imonaplane_development'
 end
@@ -125,6 +130,12 @@ post '/flights' do
   else
     erb :'/flights/new', locals: {flight: flight}
   end
+end
+
+get '/flights' do
+  flight = db.view(Flight.by_number(key: Flight.normalize_number(params[:number]), limit: 1)).first
+  content_type :json
+  flight.to_json
 end
 
 get '/:flight_key' do |flight_key|
